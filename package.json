@@ -1,0 +1,23 @@
+{
+  "name": "kenziegram",
+  "version": "1.0.0",
+  "description": "Instagran Clone with Node.js",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/luisfff29/kenziegram.git"
+  },
+  "author": "Luis Fuentes",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/luisfff29/kenziegram/issues"
+  },
+  "homepage": "https://github.com/luisfff29/kenziegram#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "multer": "^1.4.2"
+  }
+}
