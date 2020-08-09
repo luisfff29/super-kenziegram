@@ -13,6 +13,14 @@
   <body class="container">
     <%- title %>
 
+    <% if (posted) { %>
+
+    <h3>Photo Uploaded!</h3>
+    <h3><a href="/">Back</a></h3>
+    <img src="/uploads/<%= pic_uploaded %>" class="img-fluid img-thumbnail" alt="">
+
+    <% } else { %>
+
     <form action="/upload" method="POST" enctype="multipart/form-data">
       <input type="file" class="form-control-file" name="myImage">
       <button type="submit" class="btn btn-primary">Upload</button>
@@ -22,6 +30,7 @@
     <img src="/uploads/<%= pic %>" class="img-fluid img-thumbnail" alt="111">
     <% }) %>
 
+    <% } %>
 
     <!-- JS, Popper.js, and jQuery -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
