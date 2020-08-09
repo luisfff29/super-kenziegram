@@ -7,11 +7,21 @@
     <!-- CSS only -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
       integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-    <title>kenziegram-1</title>
+    <title><%= titleHeader %> </title>
   </head>
 
-  <body>
-    <h1>KenzieGram</h1>
+  <body class="container">
+    <%- title %>
+
+    <form action="/upload" method="POST" enctype="multipart/form-data">
+      <input type="file" class="form-control-file" name="myImage">
+      <button type="submit" class="btn btn-primary">Upload</button>
+    </form>
+
+    <% pics.forEach(pic => { %>
+    <img src="/uploads/<%= pic %>" class="img-fluid img-thumbnail" alt="111">
+    <% }) %>
+
 
     <!-- JS, Popper.js, and jQuery -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
