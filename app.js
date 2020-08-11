@@ -9,7 +9,6 @@ const port = 3000;
 templates = {
     titleHeader: "Kenziegram Project",
     title: "<h1>KenzieGram</h1>",
-    posted: false,
 };
 const upload = multer({ dest: path });
 
@@ -22,13 +21,10 @@ fs.readdir(path, (err, files) => {
 });
 
 app.get("/", (req, res, next) => {
-    templates.posted = false;
     res.render("index", templates);
 });
 
 app.post("/upload", upload.single("myImage"), (req, res, next) => {
-    templates.posted = true;
-    // console.log(JSON.parse(fs.readFileSync("./comments.json", "utf8")));
     templates.pics.unshift(req.file.filename);
     templates.pic_uploaded = req.file.filename;
     res.render("upload", templates);
@@ -39,7 +35,15 @@ app.post("/:myImage", (req, res, next) => {
 });
 
 app.get("/:myImage", (req, res, next) => {
-    templates.pic_uploaded = req.params.myImage;
+    myImage = req.params.myImage;
+    let value = JSON.parse(fs.readFileSync("./comments.json", "utf8"))[myImage];
+
+    if (typeof value == "undefined") {
+        templates.comments = [];
+    } else {
+        templates.comments = value.comments;
+    }
+    templates.pic_uploaded = myImage;
     res.render("comments", templates);
 });
 

@@ -14,7 +14,15 @@
           <img src="/uploads/<%= pic_uploaded %>" class="img-fluid img-thumbnail" alt="<%= pic_uploaded %>">
         </div>
 
+        <% if (comments.length != 0 ) { %>
         <h3>Comments</h3>
+        <% } %>
+        <% comments.forEach(comment => { %>
+        <blockquote class="blockquote mb-2">
+          <p class="mb-0"><%= comment.message %></p>
+          <footer class="blockquote-footer">By <cite><%= comment.author %></cite></footer>
+        </blockquote>
+        <% }) %>
 
         <form class="p-2" method="POST" action="/<%= pic_uploaded %>">
           <h3>Make a comment</h3>
