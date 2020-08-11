@@ -31,7 +31,16 @@ app.post("/upload", upload.single("myImage"), (req, res, next) => {
     // console.log(JSON.parse(fs.readFileSync("./comments.json", "utf8")));
     templates.pics.unshift(req.file.filename);
     templates.pic_uploaded = req.file.filename;
-    res.render("index", templates);
+    res.render("upload", templates);
+});
+
+app.post("/:myImage", (req, res, next) => {
+    res.render("comments", templates);
+});
+
+app.get("/:myImage", (req, res, next) => {
+    templates.pic_uploaded = req.params.myImage;
+    res.render("comments", templates);
 });
 
 app.listen(port, () => {
