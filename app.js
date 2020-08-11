@@ -21,13 +21,14 @@ fs.readdir(path, (err, files) => {
     templates.pics = files;
 });
 
-app.get("/", (req, res) => {
+app.get("/", (req, res, next) => {
     templates.posted = false;
     res.render("index", templates);
 });
 
 app.post("/upload", upload.single("myImage"), (req, res, next) => {
     templates.posted = true;
+    // console.log(JSON.parse(fs.readFileSync("./comments.json", "utf8")));
     templates.pics.unshift(req.file.filename);
     templates.pic_uploaded = req.file.filename;
     res.render("index", templates);
