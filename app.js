@@ -21,6 +21,7 @@ fs.readdir(path, (err, files) => {
 });
 
 app.get("/", (req, res, next) => {
+    templates.value = JSON.parse(fs.readFileSync("./comments.json", "utf8"));
     res.render("index", templates);
 });
 

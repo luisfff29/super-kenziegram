@@ -15,8 +15,11 @@
 
         <% pics.forEach(pic => { %>
         <figure class="figure p-2">
-          <img src="/uploads/<%= pic %>" class="figure-img img-fluid rounded" alt="<%= pic %>">
-          <figcaption class="figure-caption">This picture has 0 comments</figcaption>
+          <a href="/<%= pic %>">
+            <img src="/uploads/<%= pic %>" class="figure-img img-fluid rounded" alt="<%= pic %>">
+          </a>
+          <figcaption class="figure-caption">This picture has <%= value[pic].comments.length %> comment(s)
+          </figcaption>
         </figure>
         <% }) %>
       </div>
