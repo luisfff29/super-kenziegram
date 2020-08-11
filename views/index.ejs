@@ -28,6 +28,18 @@
         <div class="p-2">
           <img src="/uploads/<%= pic_uploaded %>" class="img-fluid img-thumbnail" alt="<%= pic_uploaded %>">
         </div>
+        <form class="p-2">
+          <h3>Make a comment</h3>
+          <div class="form-group">
+            <label for="author">Author *</label>
+            <input class="form-control" type="text" id="author" required>
+          </div>
+          <div class="form-group">
+            <label for="comment">Comment *</label>
+            <textarea class="form-control" id="comment" rows="2" placeholder="Start writing a comment here."
+              required></textarea>
+          </div>
+        </form>
         <% } else { %>
 
         <form action="/upload" method="POST" enctype="multipart/form-data" class="d-flex align-items-center p-4">
@@ -36,9 +48,10 @@
         </form>
 
         <% pics.forEach(pic => { %>
-        <div class="p-2">
-          <img src="/uploads/<%= pic %>" class="img-fluid img-thumbnail" alt="<%= pic %>">
-        </div>
+        <figure class="figure p-2">
+          <img src="/uploads/<%= pic %>" class="figure-img img-fluid rounded" alt="<%= pic %>">
+          <figcaption class="figure-caption">This picture has 0 comments</figcaption>
+        </figure>
         <% }) %>
 
         <% } %>
