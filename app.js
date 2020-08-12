@@ -10,7 +10,13 @@ templates = {
     titleHeader: "Kenziegram Project",
     title: "<h1>KenzieGram</h1>",
 };
-const upload = multer({ dest: path });
+var storage = multer.diskStorage({
+    destination: path,
+    filename: (req, file, cb) => {
+        cb(null, file.fieldname + "-" + Date.now() + ".jpg");
+    },
+});
+var upload = multer({ storage: storage });
 
 app.set("view engine", "ejs");
 
@@ -37,12 +43,13 @@ app.post("/:myImage", (req, res, next) => {
 
 app.get("/:myImage", (req, res, next) => {
     myImage = req.params.myImage;
-    let value = JSON.parse(fs.readFileSync("./comments.json", "utf8"))[myImage];
-
-    if (typeof value == "undefined") {
+    let value = JSON.parse(fs.readFileSync("./comments.json", "utf8")).data;
+    let result = value.filter((com) => com.name === myImage)[0];
+    console.log(result);
+    if (typeof result == "undefined") {
         templates.comments = [];
     } else {
-        templates.comments = value.comments;
+        templates.comments = result.comments;
     }
     templates.pic_uploaded = myImage;
     res.render("comments", templates);
