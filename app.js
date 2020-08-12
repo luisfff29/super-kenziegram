@@ -2,6 +2,7 @@ const express = require("express");
 const fs = require("fs");
 const multer = require("multer");
 const ejs = require("ejs");
+const bodyParser = require("body-parser");
 
 const path = "./public/uploads";
 const app = express();
@@ -20,6 +21,7 @@ var upload = multer({ storage: storage });
 
 app.set("view engine", "ejs");
 
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("./public"));
 
 templates.data = JSON.parse(fs.readFileSync("./comments.json", "utf8")).data;
@@ -55,6 +57,27 @@ app.get("/upload/:myImage", (req, res) => {
         templates.comments = result.comments;
     }
     templates.pic_uploaded = myImage;
+    res.render("comments", templates);
+});
+
+app.post("/upload/:myImage", (req, res) => {
+    let myImage = req.params.myImage;
+    let result = templates.data.filter((com) => com.name === myImage)[0];
+    result.comments.push({
+        author: req.body.author,
+        comment: req.body.comment,
+    });
+    setTimeout(function () {
+        fs.writeFileSync(
+            "./comments.json",
+            JSON.stringify({ data: templates.data })
+        );
+    }, 1000);
+    templates.pic_uploaded = myImage;
+    templates.comments = result.comments;
+    console.log("REQUEST");
+    console.log(req.body);
+
     res.render("comments", templates);
 });
 
