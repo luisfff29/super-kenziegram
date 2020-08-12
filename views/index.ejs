@@ -13,12 +13,14 @@
           <button type="submit" class="btn btn-primary btn-lg ml-auto">Upload</button>
         </form>
 
-        <% pics.forEach(pic => { %>
+        <% data.concat().reverse().forEach(pic => { %>
         <figure class="figure p-2">
-          <a href="/<%= pic %>">
-            <img src="/uploads/<%= pic %>" class="figure-img img-fluid rounded" alt="<%= pic %>">
+          <a href="/upload/<%= pic.name %>">
+            <img src="/uploads/<%= pic.name %>" class="figure-img img-fluid rounded" alt="<%= pic.name %>">
           </a>
-
+          <figcaption class="figure-caption">This picture has
+            <%= pic.comments.length %> comment(s)
+          </figcaption>
         </figure>
         <% }) %>
       </div>

@@ -13,7 +13,7 @@ templates = {
 var storage = multer.diskStorage({
     destination: path,
     filename: (req, file, cb) => {
-        cb(null, file.fieldname + "-" + Date.now() + ".jpg");
+        cb(null, Date.now() + ".jpg");
     },
 });
 var upload = multer({ storage: storage });
@@ -22,30 +22,33 @@ app.set("view engine", "ejs");
 
 app.use(express.static("./public"));
 
-fs.readdir(path, (err, files) => {
-    templates.pics = files;
-});
+templates.data = JSON.parse(fs.readFileSync("./comments.json", "utf8")).data;
 
 app.get("/", (req, res, next) => {
-    templates.value = JSON.parse(fs.readFileSync("./comments.json", "utf8"));
     res.render("index", templates);
 });
 
 app.post("/upload", upload.single("myImage"), (req, res, next) => {
-    templates.pics.unshift(req.file.filename);
-    templates.pic_uploaded = req.file.filename;
+    const filename = req.file.filename;
+
+    templates.data.push({
+        id: templates.data.length + 1,
+        name: filename,
+        comments: [],
+    });
+    setTimeout(function () {
+        fs.writeFileSync(
+            "./comments.json",
+            JSON.stringify({ data: templates.data })
+        );
+    }, 1000);
+    templates.pic_uploaded = filename;
     res.render("upload", templates);
 });
 
-app.post("/:myImage", (req, res, next) => {
-    res.render("comments", templates);
-});
-
-app.get("/:myImage", (req, res, next) => {
-    myImage = req.params.myImage;
-    let value = JSON.parse(fs.readFileSync("./comments.json", "utf8")).data;
-    let result = value.filter((com) => com.name === myImage)[0];
-    console.log(result);
+app.get("/upload/:myImage", (req, res) => {
+    let myImage = req.params.myImage;
+    let result = templates.data.filter((com) => com.name === myImage)[0];
     if (typeof result == "undefined") {
         templates.comments = [];
     } else {
