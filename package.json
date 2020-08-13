@@ -1,5 +1,5 @@
 {
-  "name": "kenziegram",
+  "name": "super-kenziegram",
   "version": "1.0.0",
   "description": "Instagran Clone with Node.js",
   "main": "index.js",
@@ -9,14 +9,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/luisfff29/kenziegram.git"
+    "url": "git+https://github.com/luisfff29/super-kenziegram.git"
   },
   "author": "Luis Fuentes",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/luisfff29/kenziegram/issues"
+    "url": "https://github.com/luisfff29/super-kenziegram/issues"
   },
-  "homepage": "https://github.com/luisfff29/kenziegram#readme",
+  "homepage": "https://github.com/luisfff29/super-kenziegram#readme",
   "dependencies": {
     "body-parser": "^1.19.0",
     "ejs": "^3.1.3",
